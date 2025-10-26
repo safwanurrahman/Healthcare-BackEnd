@@ -21,9 +21,14 @@ app.use(express.json());
 // const cors = require('cors');
 // app.use(cors());
 
+const { testConnection } = require('./config/db.config');
+
+const db = require('./models/index');
+
 // --- Routes ---
 
-// 1. Root route for system check
+const authRoutes = require('./routes/auth.routes');
+
 app.get('/', (req, res) => {
     // This isn't the main API, but a helpful check to see if the server is running.
     res.status(200).send('MediConnect Backend Server is running successfully!');
