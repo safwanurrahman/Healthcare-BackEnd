@@ -12,8 +12,7 @@ db.DataTypes = DataTypes;
 // Load Models
 db.Doctor = require('./Doctor')(sequelize, DataTypes);
 db.Patient = require('./Patient')(sequelize, DataTypes);
-db.Nurse = require('./Nurse')(sequelize, DataTypes);
-// db.Appointment = require('./Appointment')(sequelize, DataTypes); // CRASH BYPASS: Commented out
+db.Nurse = require('./Nurse')(sequelize, DataTypes); db.Appointment = require('./Appointment')(sequelize, DataTypes); // CRASH BYPASS: Commented out
 db.Prescription = require('./Prescription')(sequelize, DataTypes);
 db.LabResult = require('./LabResult')(sequelize, DataTypes);
 db.Bill = require('./Bill')(sequelize, DataTypes);
@@ -25,19 +24,19 @@ db.MedicalHistory = require('./MedicalHistory')(sequelize, DataTypes);
 // All Appointment relationships are commented out to prevent crashing
 
 
-// Doctor schedules multiple appointments [cite: 150]
-// db.Doctor.hasMany(db.Appointment, { foreignKey: 'DoctorID', as: 'Appointments' }); 
-// db.Appointment.belongsTo(db.Doctor, { foreignKey: 'DoctorID' }); 
+//Doctor schedules multiple appointments [cite: 150]
+db.Doctor.hasMany(db.Appointment, { foreignKey: 'DoctorID', as: 'Appointments' }); 
+db.Appointment.belongsTo(db.Doctor, { foreignKey: 'DoctorID' }); 
 
 
 // Patient books multiple appointments [cite: 151]
-// db.Patient.hasMany(db.Appointment, { foreignKey: 'PatientID', as: 'Appointments' }); 
-// db.Appointment.belongsTo(db.Patient, { foreignKey: 'PatientID' }); 
+db.Patient.hasMany(db.Appointment, { foreignKey: 'PatientID', as: 'Appointments' }); 
+db.Appointment.belongsTo(db.Patient, { foreignKey: 'PatientID' }); 
 
 
 // Nurse assists multiple appointments [cite: 152]
-// db.Nurse.hasMany(db.Appointment, { foreignKey: 'NurseID', as: 'AssistedAppointments' }); 
-// db.Appointment.belongsTo(db.Nurse, { foreignKey: 'NurseID' }); 
+db.Nurse.hasMany(db.Appointment, { foreignKey: 'NurseID', as: 'AssistedAppointments' }); 
+db.Appointment.belongsTo(db.Nurse, { foreignKey: 'NurseID' }); 
 
 
 // --- Doctor/Patient to Prescriptions (1:N) ---
@@ -55,18 +54,18 @@ db.Prescription.belongsTo(db.Patient, { foreignKey: 'PatientID' });
 // --- Transactional Relationships ---
 
 // Appointment generates prescriptions (1:N) [cite: 152]
-// db.Appointment.hasMany(db.Prescription, { foreignKey: 'AppointmentID', as: 'GeneratedPrescriptions' }); 
-// db.Prescription.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
+db.Appointment.hasMany(db.Prescription, { foreignKey: 'AppointmentID', as: 'GeneratedPrescriptions' }); 
+db.Prescription.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
 
 
 // Appointment produces lab results (1:N) [cite: 154]
-// db.Appointment.hasMany(db.LabResult, { foreignKey: 'AppointmentID', as: 'ProducedLabResults' }); 
-// db.LabResult.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
+db.Appointment.hasMany(db.LabResult, { foreignKey: 'AppointmentID', as: 'ProducedLabResults' }); 
+db.LabResult.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
 
 
 // Appointment is BilledBy one bill (1:1) [cite: 153]
-// db.Appointment.hasOne(db.Bill, { foreignKey: 'AppointmentID', as: 'Bill' }); 
-// db.Bill.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
+db.Appointment.hasOne(db.Bill, { foreignKey: 'AppointmentID', as: 'Bill' }); 
+db.Bill.belongsTo(db.Appointment, { foreignKey: 'AppointmentID' }); 
 
 
 // --- Patient Data Relationships (1:N) ---

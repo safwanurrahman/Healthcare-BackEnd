@@ -49,8 +49,10 @@ app.get(API_VERSION, (req, res) => {
 // --- Server Startup ---
 
 // Listen for connections on the specified port
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`✅ MediConnect API Server is running...`);
-    console.log(`Development Base URL: http://localhost:${PORT}${API_VERSION}`); //
+    console.log(`Development Base URL: http://localhost:${PORT}${API_VERSION}`); 
+
+    await testConnection();
     console.log('Next step: Configure Sequelize ORM and define models.');
 });
