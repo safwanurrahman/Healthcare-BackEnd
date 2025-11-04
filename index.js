@@ -27,7 +27,10 @@ const db = require('./models/index');
 
 // --- Routes ---
 
-const authRoutes = require('./routes/auth.routes');
+const authRoutes = require('./routes/auth.routes.js');
+
+// Example from index.js:
+app.use(`${API_VERSION}/auth`, authRoutes);
 
 app.get('/', (req, res) => {
     // This isn't the main API, but a helpful check to see if the server is running.

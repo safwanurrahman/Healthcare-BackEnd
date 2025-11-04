@@ -85,7 +85,7 @@ db.MedicalHistory.belongsTo(db.Patient, { foreignKey: 'PatientID' });
 
 
 // 3. Database Synchronization
-db.sequelize.sync({ alter: true }) // 'alter: true' updates tables without dropping existing data (use cautiously)
+db.sequelize.sync({ force: true }) // 'alter: true' updates tables without dropping existing data (use cautiously)
     .then(() => {
         console.log("✅ Database tables synchronized successfully.");
     })
